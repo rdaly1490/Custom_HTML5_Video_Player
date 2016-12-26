@@ -19,11 +19,23 @@ function updatePlayButton() {
 	toggle.textContent = icon;
 }
 
+function skip() {
+	const timeToSkip = parseFloat(this.dataset.skip);
+	video.currentTime += timeToSkip;
+}
+
+function handleRangeUpdate() {
+	const propertyToUpdate = this.name;
+	video[propertyToUpdate] = this.value;
+}
+
 video.addEventListener('click', togglePlay);
 video.addEventListener('play', updatePlayButton);
 video.addEventListener('pause', updatePlayButton);
 
 toggle.addEventListener('click', togglePlay);
-
+skipButtons.forEach(skipButton => skipButton.addEventListener('click', skip));
+ranges.forEach(range => range.addEventListener('change', handleRangeUpdate));
+ranges.forEach(range => range.addEventListener('mousemove', handleRangeUpdate));
 
 
